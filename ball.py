@@ -22,8 +22,11 @@ class Ball:
 
     def get_bb(self):
         return self.x - 10, self.y - 10, self.x + 10, self.y + 10
-        pass
 
     def handle_collision(self, group, other):
-        if group == 'boy:ball':
+        if group == 'boy:ball' and self.velocity == 0:
+            game_world.remove_object(self)
+        if group == 'zombie:ball' and self.velocity != 0:
+            game_world.remove_object(self)
+        elif group == 'ball:zombie':
             game_world.remove_object(self)
