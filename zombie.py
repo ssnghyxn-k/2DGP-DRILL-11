@@ -33,6 +33,8 @@ class Zombie:
         self.load_images()
         self.frame = random.randint(0, 9)
         self.dir = random.choice([-1,1])
+        self.size = 100
+        self.collision_count = 0
 
 
     def update(self):
@@ -54,5 +56,17 @@ class Zombie:
 
     def handle_event(self, event):
         pass
+
+    def get_bb(self):
+        return self.x - 50, self.y - 50, self.x + 50, self.y + 50
+
+    def handle_collision(self, group, other):
+        if group == 'boy:zombie':
+            exit()
+        elif group == 'ball:zombie':
+            self.collision_count += 1
+            self.size *= 0.5
+            if self.collision_count >= 2:
+                game_world.remove_object(self)
 
 
